@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "tau_utilities:block/portal_to_the_pit"
+  }
+}

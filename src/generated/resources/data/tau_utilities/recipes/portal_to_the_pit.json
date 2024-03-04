@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "item": "minecraft:stone"
+    },
+    "%": {
+      "item": "minecraft:nether_star"
+    },
+    "&": {
+      "tag": "minecraft:stone_tool_materials"
+    }
+  },
+  "pattern": [
+    "#&#",
+    "&%&",
+    "#&#"
+  ],
+  "result": {
+    "item": "tau_utilities:portal_to_the_pit"
+  }
+}

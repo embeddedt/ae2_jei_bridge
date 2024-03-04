@@ -1,0 +1,12 @@
+{
+  "block.tau_utilities.peaceful_table": "Peaceful Table",
+  "block.tau_utilities.portal_to_the_pit": "Portal to The Pit",
+  "death.attack.darkness": "%1$s spent too long in darkness",
+  "death.attack.darkness.player": "%1$s spent too long in the darkness of %2$s",
+  "entity.tau_utilities.shadow": "Shadow",
+  "item.tau_utilities.shadow_spawn_egg": "Shadow Spawn Egg",
+  "itemGroup.tau_utilities": "Tau Utilities",
+  "tau_utilities.bane_of_player": "Bane of Player",
+  "tau_utilities.bane_of_player.named": "Bane of ",
+  "underland.teleporter_out_of_range": "Teleporter is too high or too low"
+}
