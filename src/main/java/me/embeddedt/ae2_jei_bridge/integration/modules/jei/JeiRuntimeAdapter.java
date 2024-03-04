@@ -1,12 +1,13 @@
 package me.embeddedt.ae2_jei_bridge.integration.modules.jei;
 
+import appeng.integration.abstraction.ItemListModAdapter;
 import com.google.common.base.Strings;
 
 import mezz.jei.api.runtime.IJeiRuntime;
 
 import me.embeddedt.ae2_jei_bridge.integration.abstraction.IJEI;
 
-public class JeiRuntimeAdapter implements IJEI {
+public class JeiRuntimeAdapter implements IJEI, ItemListModAdapter {
 
     private final IJeiRuntime runtime;
 
@@ -17,6 +18,11 @@ public class JeiRuntimeAdapter implements IJEI {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    @Override
+    public String getShortName() {
+        return "JEI";
     }
 
     public IJeiRuntime getRuntime() {

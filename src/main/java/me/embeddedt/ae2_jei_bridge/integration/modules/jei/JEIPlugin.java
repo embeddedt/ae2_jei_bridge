@@ -6,6 +6,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
+import appeng.integration.abstraction.ItemListMod;
+import appeng.integration.abstraction.ItemListModAdapter;
 import com.google.common.collect.ImmutableList;
 
 import me.embeddedt.ae2_jei_bridge.mixin.RecipeManagerAccessor;
@@ -282,7 +284,9 @@ public class JEIPlugin implements IModPlugin {
     @Override
     public void onRuntimeAvailable(IJeiRuntime jeiRuntime) {
         this.jeiRuntime = jeiRuntime;
-        JEIFacade.setInstance(new JeiRuntimeAdapter(jeiRuntime));
+        var adapter = new JeiRuntimeAdapter(jeiRuntime);
+        JEIFacade.setInstance(adapter);
+        ItemListMod.setAdapter(adapter);
         this.hideDebugTools(jeiRuntime);
 
         if (!AEConfig.instance().isEnableFacadesInJEI()) {
