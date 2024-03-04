@@ -102,6 +102,7 @@ dependencies {
     implementation "appeng:appliedenergistics2-neoforge:${ae2_version}"
 
     compileOnly("me.shedaniel:RoughlyEnoughItems-api-neoforge:${rei_version}")
+    compileOnly("me.shedaniel:REIPluginCompatibilities-forge-annotations:${reipcanno_version}")
 }
 
 // This block of code expands all declared replace properties in the specified resource targets.

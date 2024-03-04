@@ -11,6 +11,7 @@ import appeng.integration.abstraction.ItemListModAdapter;
 import com.google.common.collect.ImmutableList;
 
 import me.embeddedt.ae2_jei_bridge.mixin.RecipeManagerAccessor;
+import me.shedaniel.rei.plugincompatibilities.api.REIPluginCompatIgnore;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.Rect2i;
@@ -67,6 +68,7 @@ import appeng.recipes.handlers.InscriberRecipe;
 import appeng.recipes.transform.TransformRecipe;
 
 @JeiPlugin
+@REIPluginCompatIgnore
 public class JEIPlugin implements IModPlugin {
     public static final ResourceLocation TEXTURE = AppEng.makeId("textures/guis/jei.png");
 
