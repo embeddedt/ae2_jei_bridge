@@ -5,8 +5,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-import appeng.core.network.NetworkHandler;
 import appeng.core.network.serverbound.InventoryActionPacket;
+import net.neoforged.neoforge.network.PacketDistributor;
 import org.jetbrains.annotations.Nullable;
 
 import net.minecraft.client.renderer.Rect2i;
@@ -100,7 +100,7 @@ class GhostIngredientHandler implements IGhostIngredientHandler<AEBaseScreen> {
             var wrapped = wrapDraggedItem(type, ingredient);
 
             if (wrapped != null) {
-                NetworkHandler.instance().sendToServer(new InventoryActionPacket(InventoryAction.SET_FILTER,
+                PacketDistributor.sendToServer(new InventoryActionPacket(InventoryAction.SET_FILTER,
                         slot.index, wrapped));
             }
         }

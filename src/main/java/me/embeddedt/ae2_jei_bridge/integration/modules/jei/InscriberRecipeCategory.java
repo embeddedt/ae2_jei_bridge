@@ -34,7 +34,7 @@ class InscriberRecipeCategory implements IRecipeCategory<InscriberRecipe> {
     private final IDrawable icon;
 
     public InscriberRecipeCategory(IGuiHelper guiHelper) {
-        ResourceLocation location = new ResourceLocation(AppEng.MOD_ID, "textures/guis/inscriber.png");
+        ResourceLocation location = ResourceLocation.fromNamespaceAndPath(AppEng.MOD_ID, "textures/guis/inscriber.png");
         this.background = guiHelper.createDrawable(location, 44, 15, 97, 64);
 
         IDrawableStatic progressDrawable = guiHelper.drawableBuilder(location, 135, 177, 6, 18).addPadding(24, 0, 91, 0)

@@ -90,7 +90,7 @@ class FacadeRegistryPlugin implements IRecipeManagerPlugin {
     private RecipeHolder<ShapedRecipe> make(ItemStack textureItem, ItemStack cableAnchor, ItemStack result) {
         // This id should only be used within JEI and not really matter
         var itemId = BuiltInRegistries.ITEM.getKey(textureItem.getItem());
-        ResourceLocation id = new ResourceLocation(AppEng.MOD_ID,
+        ResourceLocation id = ResourceLocation.fromNamespaceAndPath(AppEng.MOD_ID,
                 "facade/" + itemId.getNamespace() + "/" + itemId.getPath());
 
         NonNullList<Ingredient> ingredients = NonNullList.withSize(9, Ingredient.EMPTY);

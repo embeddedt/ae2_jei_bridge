@@ -6,14 +6,15 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
+import appeng.api.ids.AEComponents;
 import appeng.integration.abstraction.ItemListMod;
-import appeng.integration.abstraction.ItemListModAdapter;
 import com.google.common.collect.ImmutableList;
 
 import de.mari_023.ae2wtlib.wct.WCTMenu;
 import de.mari_023.ae2wtlib.wet.WETMenu;
 import me.embeddedt.ae2_jei_bridge.mixin.RecipeManagerAccessor;
 import me.shedaniel.rei.plugincompatibilities.api.REIPluginCompatIgnore;
+import mezz.jei.api.ingredients.subtypes.IIngredientSubtypeInterpreter;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.Rect2i;
@@ -75,7 +76,7 @@ import net.neoforged.fml.ModList;
 public class JEIPlugin implements IModPlugin {
     public static final ResourceLocation TEXTURE = AppEng.makeId("textures/guis/jei.png");
 
-    private static final ResourceLocation ID = new ResourceLocation(AppEng.MOD_ID, "core");
+    private static final ResourceLocation ID = ResourceLocation.fromNamespaceAndPath(AppEng.MOD_ID, "core");
 
     private IJeiRuntime jeiRuntime;
 
@@ -91,7 +92,13 @@ public class JEIPlugin implements IModPlugin {
 
     @Override
     public void registerItemSubtypes(ISubtypeRegistration subtypeRegistry) {
-        subtypeRegistry.useNbtForSubtypes(AEItems.FACADE.asItem());
+        subtypeRegistry.registerSubtypeInterpreter(AEItems.FACADE.asItem(), (itemStack, context) -> {
+            var facadeItem = itemStack.get(AEComponents.FACADE_ITEM);
+            if (facadeItem == null) {
+                return IIngredientSubtypeInterpreter.NONE;
+            }
+            return facadeItem.value().builtInRegistryHolder().key().location().toString();
+        });
     }
 
     @Override
@@ -139,15 +146,15 @@ public class JEIPlugin implements IModPlugin {
         RecipeManager recipeManager = Minecraft.getInstance().level.getRecipeManager();
         RecipeManagerAccessor rma = (RecipeManagerAccessor)recipeManager;
         registration.addRecipes(InscriberRecipeCategory.RECIPE_TYPE,
-                rma.invokeByType(InscriberRecipe.TYPE).values().stream().map(RecipeHolder::value).toList());
+                rma.invokeByType(InscriberRecipe.TYPE).stream().map(RecipeHolder::value).toList());
         registration.addRecipes(ChargerCategory.RECIPE_TYPE,
-                rma.invokeByType(ChargerRecipe.TYPE).values().stream().map(RecipeHolder::value).toList());
+                rma.invokeByType(ChargerRecipe.TYPE).stream().map(RecipeHolder::value).toList());
         registration.addRecipes(CondenserCategory.RECIPE_TYPE,
                 ImmutableList.of(CondenserOutput.MATTER_BALLS, CondenserOutput.SINGULARITY));
         registration.addRecipes(EntropyManipulatorCategory.TYPE,
-                rma.invokeByType(EntropyRecipe.TYPE).values().stream().map(RecipeHolder::value).toList());
+                rma.invokeByType(EntropyRecipe.TYPE).stream().map(RecipeHolder::value).toList());
         registration.addRecipes(TransformCategory.RECIPE_TYPE,
-                rma.invokeByType(TransformRecipe.TYPE).values().stream().map(RecipeHolder::value).toList());
+                rma.invokeByType(TransformRecipe.TYPE).stream().map(RecipeHolder::value).toList());
 
         registerP2PAttunement(registration);
         registerDescriptions(registration);
@@ -227,7 +234,7 @@ public class JEIPlugin implements IModPlugin {
 
     @Override
     public void registerAdvanced(IAdvancedRegistration registration) {
-        if (AEConfig.instance().isEnableFacadeRecipesInJEI()) {
+        if (AEConfig.instance().isEnableFacadeRecipesInRecipeViewer()) {
             FacadeItem itemFacade = AEItems.FACADE.asItem();
             ItemStack cableAnchor = AEParts.CABLE_ANCHOR.stack();
             registration.addRecipeManagerPlugin(new FacadeRegistryPlugin(itemFacade, cableAnchor));
@@ -302,7 +309,7 @@ public class JEIPlugin implements IModPlugin {
         ItemListMod.setAdapter(adapter);
         this.hideDebugTools(jeiRuntime);
 
-        if (!AEConfig.instance().isEnableFacadesInJEI()) {
+        if (!AEConfig.instance().isEnableFacadesInRecipeViewer()) {
             jeiRuntime.getIngredientManager().removeIngredientsAtRuntime(VanillaTypes.ITEM_STACK,
                     FacadeCreativeTab.getDisplayItems());
         }
