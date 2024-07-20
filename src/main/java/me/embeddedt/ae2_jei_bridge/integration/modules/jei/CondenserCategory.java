@@ -6,6 +6,7 @@ import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 
+import appeng.core.localization.ButtonToolTips;
 import com.google.common.collect.Lists;
 
 import net.minecraft.client.gui.GuiGraphics;
@@ -53,13 +54,13 @@ class CondenserCategory implements IRecipeCategory<CondenserOutput> {
         this.icon = guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, AEBlocks.CONDENSER.stack());
 
         ResourceLocation location = ResourceLocation.fromNamespaceAndPath(AppEng.MOD_ID, "textures/guis/condenser.png");
-        this.background = guiHelper.createDrawable(location, 50, 25, 94, 48);
+        this.background = guiHelper.createDrawable(location, 48, 25, 96, 48);
 
         // This is shown on the "input slot" for condenser operations to indicate that any item can be used
-        this.iconTrash = new IconDrawable(Icon.BACKGROUND_TRASH, 1, 27);
-        this.iconButton = new IconDrawable(Icon.TOOLBAR_BUTTON_BACKGROUND, 78, 26);
+        this.iconTrash = new IconDrawable(Icon.BACKGROUND_TRASH, 3, 27);
+        this.iconButton = new IconDrawable(Icon.TOOLBAR_BUTTON_BACKGROUND, 80, 26);
 
-        IDrawableStatic progressDrawable = guiHelper.drawableBuilder(location, 178, 25, 6, 18).addPadding(0, 0, 70, 0)
+        IDrawableStatic progressDrawable = guiHelper.drawableBuilder(location, 176, 0, 6, 18).addPadding(0, 0, 72, 0)
                 .build();
         this.progress = guiHelper.createAnimatedDrawable(progressDrawable, 40, IDrawableAnimated.StartDirection.BOTTOM,
                 false);
@@ -67,9 +68,9 @@ class CondenserCategory implements IRecipeCategory<CondenserOutput> {
         this.buttonIcons = new EnumMap<>(CondenserOutput.class);
 
         this.buttonIcons.put(CondenserOutput.MATTER_BALLS,
-                new IconDrawable(Icon.CONDENSER_OUTPUT_MATTER_BALL, 78, 26));
+                new IconDrawable(Icon.CONDENSER_OUTPUT_MATTER_BALL, 81, 27));
         this.buttonIcons.put(CondenserOutput.SINGULARITY,
-                new IconDrawable(Icon.CONDENSER_OUTPUT_SINGULARITY, 78, 26));
+                new IconDrawable(Icon.CONDENSER_OUTPUT_SINGULARITY, 81, 27));
     }
 
     private ItemStack getOutput(CondenserOutput recipe) {
@@ -115,12 +116,12 @@ class CondenserCategory implements IRecipeCategory<CondenserOutput> {
 
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, CondenserOutput recipe, IFocusGroup focuses) {
-        builder.addSlot(RecipeIngredientRole.OUTPUT, 55, 27)
+        builder.addSlot(RecipeIngredientRole.OUTPUT, 57, 27)
                 .setSlotName("output")
                 .addItemStack(getOutput(recipe));
 
         // Get all storage cells and cycle them through a catalyst slot
-        builder.addSlot(RecipeIngredientRole.CATALYST, 51, 1)
+        builder.addSlot(RecipeIngredientRole.CATALYST, 53, 1)
                 .setSlotName("storage_cell")
                 .addItemStacks(getViableStorageComponents(recipe));
     }
@@ -148,15 +149,15 @@ class CondenserCategory implements IRecipeCategory<CondenserOutput> {
     public List<Component> getTooltipStrings(CondenserOutput recipe, IRecipeSlotsView recipeSlotsView, double mouseX,
             double mouseY) {
 
-        if (mouseX >= 28 && mouseX < 28 + 16 && mouseY >= 78 && mouseY < 78 + 16) {
+        if (mouseX >= 80 && mouseX < 80 + 16 && mouseY >= 26 && mouseY < 26 + 16) {
             String key;
 
             switch (recipe) {
                 case MATTER_BALLS:
-                    key = "gui.tooltips.appliedenergistics2.MatterBalls";
+                    key = ButtonToolTips.MatterBalls.getTranslationKey();
                     break;
                 case SINGULARITY:
-                    key = "gui.tooltips.appliedenergistics2.Singularity";
+                    key = ButtonToolTips.Singularity.getTranslationKey();
                     break;
                 default:
                     return Collections.emptyList();
