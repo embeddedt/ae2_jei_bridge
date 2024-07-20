@@ -35,9 +35,9 @@ class InscriberRecipeCategory implements IRecipeCategory<InscriberRecipe> {
 
     public InscriberRecipeCategory(IGuiHelper guiHelper) {
         ResourceLocation location = ResourceLocation.fromNamespaceAndPath(AppEng.MOD_ID, "textures/guis/inscriber.png");
-        this.background = guiHelper.createDrawable(location, 44, 15, 97, 64);
+        this.background = guiHelper.createDrawable(location, 36, 20, 105, 54);
 
-        IDrawableStatic progressDrawable = guiHelper.drawableBuilder(location, 135, 177, 6, 18).addPadding(24, 0, 91, 0)
+        IDrawableStatic progressDrawable = guiHelper.drawableBuilder(location, 177, 0, 6, 18).addPadding(19, 0, 100, 0)
                 .build();
         this.progress = guiHelper.createAnimatedDrawable(progressDrawable, 40, IDrawableAnimated.StartDirection.BOTTOM,
                 false);
@@ -62,16 +62,16 @@ class InscriberRecipeCategory implements IRecipeCategory<InscriberRecipe> {
 
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, InscriberRecipe recipe, IFocusGroup focuses) {
-        builder.addSlot(RecipeIngredientRole.INPUT, 1, 1)
+        builder.addSlot(RecipeIngredientRole.INPUT, 3, 3)
                 .setSlotName("top")
                 .addIngredients(recipe.getTopOptional());
-        builder.addSlot(RecipeIngredientRole.INPUT, 19, 24)
-                .setSlotName("top")
+        builder.addSlot(RecipeIngredientRole.INPUT, 27, 19)
+                .setSlotName("middle")
                 .addIngredients(recipe.getMiddleInput());
-        builder.addSlot(RecipeIngredientRole.INPUT, 1, 47)
-                .setSlotName("top")
+        builder.addSlot(RecipeIngredientRole.INPUT, 3, 35)
+                .setSlotName("bottom")
                 .addIngredients(recipe.getBottomOptional());
-        builder.addSlot(RecipeIngredientRole.OUTPUT, 69, 25)
+        builder.addSlot(RecipeIngredientRole.OUTPUT, 77, 20)
                 .setSlotName("output")
                 .addItemStack(recipe.getResultItem());
     }
